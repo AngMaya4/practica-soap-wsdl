@@ -1,0 +1,12 @@
+# Dependencias de Node.js
+node_modules/
+
+# Archivos de configuración privada
+.env
+
+# Archivos temporales
+*.log
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db

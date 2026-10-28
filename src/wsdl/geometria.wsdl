@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://localhost:3000/geometria"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://localhost:3000/geometria"
+    name="GeometriaService">
+
+    <types>
+        <xsd:schema targetNamespace="http://localhost:3000/geometria">
+
+            <!-- Entrada para calcular el área -->
+            <xsd:element name="AreaRectangulo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="base" type="xsd:double"/>
+                        <xsd:element name="altura" type="xsd:double"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <!-- Respuesta del área -->
+            <xsd:element name="AreaRectanguloResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="resultado" type="xsd:double"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <!-- Entrada para calcular el perímetro -->
+            <xsd:element name="PerimetroRectangulo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="base" type="xsd:double"/>
+                        <xsd:element name="altura" type="xsd:double"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <!-- Respuesta del perímetro -->
+            <xsd:element name="PerimetroRectanguloResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="resultado" type="xsd:double"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+        </xsd:schema>
+    </types>
+
+    <!-- Mensajes para calcular el área -->
+    <message name="AreaRectanguloRequest">
+        <part name="parameters" element="tns:AreaRectangulo"/>
+    </message>
+
+    <message name="AreaRectanguloResponse">
+        <part name="parameters" element="tns:AreaRectanguloResponse"/>
+    </message>
+
+    <!-- Mensajes para calcular el perímetro -->
+    <message name="PerimetroRectanguloRequest">
+        <part name="parameters" element="tns:PerimetroRectangulo"/>
+    </message>
+
+    <message name="PerimetroRectanguloResponse">
+        <part name="parameters" element="tns:PerimetroRectanguloResponse"/>
+    </message>
+
+    <!-- Operaciones disponibles -->
+    <portType name="GeometriaPortType">
+
+        <operation name="AreaRectangulo">
+            <input message="tns:AreaRectanguloRequest"/>
+            <output message="tns:AreaRectanguloResponse"/>
+        </operation>
+
+        <operation name="PerimetroRectangulo">
+            <input message="tns:PerimetroRectanguloRequest"/>
+            <output message="tns:PerimetroRectanguloResponse"/>
+        </operation>
+
+    </portType>
+
+    <!-- Configuración SOAP -->
+    <binding name="GeometriaBinding" type="tns:GeometriaPortType">
+
+        <soap:binding
+            style="document"
+            transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <operation name="AreaRectangulo">
+            <soap:operation soapAction="AreaRectangulo"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="PerimetroRectangulo">
+            <soap:operation soapAction="PerimetroRectangulo"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+    </binding>
+
+    <!-- Dirección de nuestro servicio -->
+    <service name="GeometriaService">
+
+        <port name="GeometriaPort" binding="tns:GeometriaBinding">
+
+            <soap:address
+                location="http://localhost:3000/soap/geometria"/>
+
+        </port>
+
+    </service>
+
+</definitions>
